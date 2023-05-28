@@ -391,7 +391,7 @@ export default function Home() {
           {tabIndex === 0 ? (
             <div className="z-50   relative h-full flex items-center  gap-6 ">
               <div
-                className="col-span-1  px-8 pt-14 rounded-xl w-[40%] lg:block hidden  max-h-full overflow-scroll"
+                className="col-span-1  px-8 pt-14 rounded-xl w-[40%] lg:block hidden  max-h-full overflow-auto"
                 style={{
                   background: "rgba(26, 27, 30, 0.85)",
                   backdropFilter: "blur(2px)",
@@ -767,7 +767,7 @@ export default function Home() {
         </div>
         <VarModal className="max-w-5xl">
         <div
-                className="col-span-1  px-8 pt-14 rounded-xl w-full block   max-h-full overflow-scroll"
+                className="col-span-1  px-8 pt-14 rounded-xl w-full block   max-h-full overflow-auto"
                 style={{
                   background: "rgba(26, 27, 30, 0.85)",
                   backdropFilter: "blur(2px)",
