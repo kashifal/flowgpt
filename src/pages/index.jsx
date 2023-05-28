@@ -1,43 +1,28 @@
-import { Fragment, useState } from "react";
-import { Dialog, Menu, Transition } from "@headlessui/react";
-import Logo from "@/components/Svgs/Logo";
 import SliderSizes from "@/components/Slider";
+import Logo from "@/components/Svgs/Logo";
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import * as React from "react";
 
-
-import {
-  Bars3Icon,
-  BellIcon,
-  CalendarIcon,
-  ChartPieIcon,
-  DocumentDuplicateIcon,
-  FolderIcon,
-  UsersIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import {
-  ChevronDownIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/20/solid";
-import BgBar from "@/components/Svgs/bar";
-import Image from "next/image";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 // import Play from '@/components/Svgs/PlayIcon';
-import DoublePlayIcon from "@/components/Svgs/Play";
-import HomeIcon from "@/components/Svgs/HomeIcon";
-import CreateIcon from "@/components/Svgs/CreateIcon";
-import CommunityIcon from "@/components/Svgs/Community";
+import VarModal from "@/components/Modal";
+import RadioModels from "@/components/Radio";
+import BasicsIcon from "@/components/Svgs/Basics";
+import BountyIcon from "@/components/Svgs/Bounty";
+import CameraIcon from "@/components/Svgs/Camera";
 import ChatIcon from "@/components/Svgs/ChatIcon";
 import CollectionIcon from "@/components/Svgs/CollectionIcon";
-import BountyIcon from "@/components/Svgs/Bounty";
-import LearnIcon from "@/components/Svgs/Learn";
+import CommunityIcon from "@/components/Svgs/Community";
+import CreateIcon from "@/components/Svgs/CreateIcon";
 import FluxIcon from "@/components/Svgs/Flux";
-import CameraIcon from "@/components/Svgs/Camera";
-import Link from "next/link";
-import BasicsIcon from "@/components/Svgs/Basics";
-import SettingsIcon from "@/components/Svgs/Settings";
+import HomeIcon from "@/components/Svgs/HomeIcon";
+import LearnIcon from "@/components/Svgs/Learn";
 import MessageIcon from "@/components/Svgs/Message";
-import RadioModels from "@/components/Radio";
-import VarModal from "@/components/Modal";
+import DoublePlayIcon from "@/components/Svgs/Play";
+import SettingsIcon from "@/components/Svgs/Settings";
+import { useFieldArray, useForm } from "react-hook-form";
 
 const navigation = [
   { name: "Home", href: "#", icon: HomeIcon, current: true },
@@ -63,9 +48,16 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-
-
 export default function Home() {
+  const { register, control } = useForm({
+    defaultValues: {
+      variables: [{ name: "", text: true, select: false }],
+    },
+  });
+  const { fields, append, remove, update } = useFieldArray({
+    control,
+    name: "variables",
+  });
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [tabIndex, setTabindex] = useState(0);
   const [context, setContext] = useState([
@@ -74,23 +66,12 @@ export default function Home() {
     },
   ]);
 
-
-
-
-
-
   const [variables, setVariables] = useState([
     {
       id: uuidv4(),
       inp: "",
     },
   ]);
-
-
-
-
-
-
 
   function addInpu() {
     setVariables([
@@ -101,12 +82,6 @@ export default function Home() {
       },
     ]);
   }
-
-
-
-
-
-
 
   function addContextInpu() {
     setContext([
@@ -121,6 +96,18 @@ export default function Home() {
     const updatedVariables = variables.filter((item) => item.id !== id);
     setVariables(updatedVariables);
   }
+  function handleClickSelect(id, index) {
+    update(index, { name: "", select: true, text: false });
+  }
+  function handleClickText(id, index) {
+    console.log("handleClickText");
+    update(index, { name: "", select: false, text: true });
+    console.log(fields);
+  }
+
+  React.useEffect(() => {
+    console.log(fields);
+  });
 
   return (
     <>
@@ -424,7 +411,7 @@ export default function Home() {
                       Variables
                     </label>
                     <button
-                      onClick={() => addInpu()}
+                      onClick={() => append({ name: "hello" })}
                       htmlFor="comment"
                       className="flex items-center text-sm font-medium leading-6 text-gray-100"
                     >
@@ -483,29 +470,46 @@ export default function Home() {
                                     </tr>
                                   </thead>
                                   <tbody className="divide-y divide-gray-200 bg-transparent">
-                                    {variables.map((inp) => (
-                                      <tr key={inp.inp}>
+                                    {fields.map((item, index) => (
+                                      <tr key={item.id}>
                                         <td className="whitespace-nowrap   text-sm font-medium text-gray-100 sm:pl-6">
                                           <div className="w-full relative py-1.5 bg-transparent border border-gray-600 px-2 rounded-xl  justify-center gap-4 flex items-center">
                                             <div className="w-2/4 flex items-center justify-center">
                                               Text
                                             </div>
-                                            <div className="w-2/4 text-white/80 flex text-xs items-center justify-center">
+                                            <div
+                                              className="w-2/4 text-white/80 flex text-xs items-center justify-center"
+                                              onClick={() =>
+                                                handleClickSelect(
+                                                  item.id,
+                                                  index
+                                                )
+                                              }
+                                            >
                                               Select
                                             </div>
-                                            <div className="absolute top-0 h-full w-2/4 text-xs left-0 linear-bg rounded-xl flex items-center justify-center">
+                                            <div
+                                              className="absolute top-0 h-full w-2/4 text-xs left-0 linear-bg rounded-xl flex items-center justify-center"
+                                              onClick={() =>
+                                                handleClickText(item.id, index)
+                                              }
+                                            >
                                               Text
                                             </div>
                                           </div>
                                         </td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-100">
-                                          <input
-                                            type="text"
-                                            className="py-1.5  border border-gray-600 pl-2 rounded-xl bg-transparent"
-                                            value={inp.inp}
-                                            name=""
-                                            id=""
-                                          />
+                                          {item?.select ? (
+                                            <input
+                                              type="text"
+                                              className="py-1.5  border border-gray-600 pl-2 rounded-xl bg-transparent"
+                                              {...register(
+                                                `variable.${item}.name`
+                                              )}
+                                            />
+                                          ) : (
+                                            <h1>Select is here</h1>
+                                          )}
                                         </td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-100">
                                           ali
@@ -518,7 +522,7 @@ export default function Home() {
                                             strokeWidth={1.5}
                                             stroke="currentColor"
                                             className="w-4 h-4 cursor-pointer"
-                                            onClick={() => deleteRecord(inp.id)}
+                                            onClick={() => remove(index)}
                                           >
                                             <path
                                               strokeLinecap="round"
@@ -571,7 +575,7 @@ export default function Home() {
                     </div>
 
                     {context.map((item) => (
-                      <div className="mt-2">
+                      <div className="mt-2" key={item}>
                         <input
                           type="text"
                           placeholder="You can import datasets as context"
@@ -766,237 +770,237 @@ export default function Home() {
           )}
         </div>
         <VarModal className="max-w-5xl">
-        <div
-                className="col-span-1  px-8 pt-14 rounded-xl w-full block   max-h-full overflow-scroll"
-                style={{
-                  background: "rgba(26, 27, 30, 0.85)",
-                  backdropFilter: "blur(2px)",
-                }}
+          <div
+            className="col-span-1  px-8 pt-14 rounded-xl w-full block   max-h-full overflow-scroll"
+            style={{
+              background: "rgba(26, 27, 30, 0.85)",
+              backdropFilter: "blur(2px)",
+            }}
+          >
+            <div>
+              <label
+                htmlFor="comment"
+                className="block text-sm font-medium leading-6 text-white/80"
               >
-                <div>
-                  <label
-                    htmlFor="comment"
-                    className="block text-sm font-medium leading-6 text-white/80"
-                  >
-                    Prompt
-                  </label>
-                  <div className="mt-2">
-                    <textarea
-                      rows={6}
-                      name="comment"
-                      id="comment"
-                      className="block w-full text-white  bg-[#FFFFFF]/[15%] rounded-md border-0 py-1.5  shadow-sm text-sm focus:outline-none px-4"
-                      defaultValue={""}
-                    />
-                  </div>
-                </div>
+                Prompt
+              </label>
+              <div className="mt-2">
+                <textarea
+                  rows={6}
+                  name="comment"
+                  id="comment"
+                  className="block w-full text-white  bg-[#FFFFFF]/[15%] rounded-md border-0 py-1.5  shadow-sm text-sm focus:outline-none px-4"
+                  defaultValue={""}
+                />
+              </div>
+            </div>
 
-                <div className="mt-6">
-                  <div className="flex items-center justify-between">
-                    <label
-                      htmlFor="comment"
-                      className="block text-sm font-medium leading-6 text-gray-100"
-                    >
-                      Variables
-                    </label>
-                    <button
-                      onClick={() => addInpu()}
-                      htmlFor="comment"
-                      className="flex items-center text-sm font-medium leading-6 text-gray-100"
-                    >
-                      Add
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2}
-                        stroke="currentColor"
-                        className="w-5 h-5"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M12 6v12m6-6H6"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                  <div className="mt-2">
-                    <div
-                      className="block w-full text-white  bg-[#FFFFFF]/[15%] rounded-md border-0   shadow-sm text-sm focus:outline-none "
-                      defaultValue={""}
-                    >
-                      <div className="">
-                        <div className=" flow-root">
-                          <div className=" overflow-x-auto ">
-                            <div className="inline-block w-full align-middle ">
-                              <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                                <table className="min-w-full divide-y divide-gray-300">
-                                  <thead className="bg-transparent">
-                                    <tr>
-                                      <th
-                                        scope="col"
-                                        className="py-3.5 text-center text-xs font-semibold text-gray-100/80 sm:pl-6"
+            <div className="mt-6">
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="comment"
+                  className="block text-sm font-medium leading-6 text-gray-100"
+                >
+                  Variables
+                </label>
+                <button
+                  onClick={() => addInpu()}
+                  htmlFor="comment"
+                  className="flex items-center text-sm font-medium leading-6 text-gray-100"
+                >
+                  Add
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                    className="w-5 h-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 6v12m6-6H6"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div className="mt-2">
+                <div
+                  className="block w-full text-white  bg-[#FFFFFF]/[15%] rounded-md border-0   shadow-sm text-sm focus:outline-none "
+                  defaultValue={""}
+                >
+                  <div className="">
+                    <div className=" flow-root">
+                      <div className=" overflow-x-auto ">
+                        <div className="inline-block w-full align-middle ">
+                          <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                            <table className="min-w-full divide-y divide-gray-300">
+                              <thead className="bg-transparent">
+                                <tr>
+                                  <th
+                                    scope="col"
+                                    className="py-3.5 text-center text-xs font-semibold text-gray-100/80 sm:pl-6"
+                                  >
+                                    Option
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="  py-3.5 text-center text-xs font-semibold text-gray-100/80"
+                                  >
+                                    variable name
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="  py-3.5 text-center text-xs font-semibold text-gray-100/80"
+                                  >
+                                    example input
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="  py-3.5 text-center text-xs font-semibold text-gray-100"
+                                  ></th>
+                                </tr>
+                              </thead>
+                              <tbody className="divide-y divide-gray-200 bg-transparent">
+                                {variables.map((inp) => (
+                                  <tr key={inp.inp}>
+                                    <td className="whitespace-nowrap   text-sm font-medium text-gray-100 sm:pl-6">
+                                      <div className="w-full relative py-1.5 bg-transparent border border-gray-600 px-2 rounded-xl  justify-center gap-4 flex items-center">
+                                        <div className="w-2/4 flex items-center justify-center">
+                                          Text
+                                        </div>
+                                        <div className="w-2/4 text-white/80 flex text-xs items-center justify-center">
+                                          Select
+                                        </div>
+                                        <div className="absolute top-0 h-full w-2/4 text-xs left-0 linear-bg rounded-xl flex items-center justify-center">
+                                          Text
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-100">
+                                      <input
+                                        type="text"
+                                        className="py-1.5  border border-gray-600 pl-2 rounded-xl bg-transparent"
+                                        value={inp.inp}
+                                        name=""
+                                        id=""
+                                      />
+                                    </td>
+                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-100">
+                                      ali
+                                    </td>
+                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-100">
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-4 h-4 cursor-pointer"
+                                        onClick={() => deleteRecord(inp.id)}
                                       >
-                                        Option
-                                      </th>
-                                      <th
-                                        scope="col"
-                                        className="  py-3.5 text-center text-xs font-semibold text-gray-100/80"
-                                      >
-                                        variable name
-                                      </th>
-                                      <th
-                                        scope="col"
-                                        className="  py-3.5 text-center text-xs font-semibold text-gray-100/80"
-                                      >
-                                        example input
-                                      </th>
-                                      <th
-                                        scope="col"
-                                        className="  py-3.5 text-center text-xs font-semibold text-gray-100"
-                                      ></th>
-                                    </tr>
-                                  </thead>
-                                  <tbody className="divide-y divide-gray-200 bg-transparent">
-                                    {variables.map((inp) => (
-                                      <tr key={inp.inp}>
-                                        <td className="whitespace-nowrap   text-sm font-medium text-gray-100 sm:pl-6">
-                                          <div className="w-full relative py-1.5 bg-transparent border border-gray-600 px-2 rounded-xl  justify-center gap-4 flex items-center">
-                                            <div className="w-2/4 flex items-center justify-center">
-                                              Text
-                                            </div>
-                                            <div className="w-2/4 text-white/80 flex text-xs items-center justify-center">
-                                              Select
-                                            </div>
-                                            <div className="absolute top-0 h-full w-2/4 text-xs left-0 linear-bg rounded-xl flex items-center justify-center">
-                                              Text
-                                            </div>
-                                          </div>
-                                        </td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-100">
-                                          <input
-                                            type="text"
-                                            className="py-1.5  border border-gray-600 pl-2 rounded-xl bg-transparent"
-                                            value={inp.inp}
-                                            name=""
-                                            id=""
-                                          />
-                                        </td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-100">
-                                          ali
-                                        </td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-100">
-                                          <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth={1.5}
-                                            stroke="currentColor"
-                                            className="w-4 h-4 cursor-pointer"
-                                            onClick={() => deleteRecord(inp.id)}
-                                          >
-                                            <path
-                                              strokeLinecap="round"
-                                              strokeLinejoin="round"
-                                              d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                                            />
-                                          </svg>
-                                        </td>
-                                      </tr>
-                                    ))}
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                                        />
+                                      </svg>
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-
-                  <div className="mt-6">
-                    <div className="flex items-center justify-between">
-                      <label
-                        htmlFor="comment"
-                        className="block text-sm font-medium leading-6 text-gray-100"
-                      >
-                        Context
-                      </label>
-                      <button
-                        onClick={() => addContextInpu()}
-                        htmlFor="comment"
-                        className="flex items-center text-sm font-medium leading-6 text-gray-100"
-                      >
-                        Add
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={2}
-                          stroke="currentColor"
-                          className="w-5 h-5"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M12 6v12m6-6H6"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-
-                    {context.map((item) => (
-                      <div className="mt-2">
-                        <input
-                          type="text"
-                          placeholder="You can import datasets as context"
-                          className="w-full text-white focus:outline-none text-sm px-2 bg-white/[15%] py-3 rounded-md"
-                          name=""
-                          id=""
-                        />
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="mt-6">
-                    <label
-                      htmlFor="comment"
-                      className="block text-sm font-medium leading-6 text-gray-100"
-                    >
-                      Configuration Settings
-                    </label>
-
-                    <RadioModels />
-                  </div>
-
-                  <div className="mt-6 mb-2">
-                    <h2 className="text-sm font-medium leading-6 text-white/80">
-                      Temprature
-                    </h2>
-
-                    <SliderSizes />
-                  </div>
-
-                  <div className="pb-4">
-                    <label
-                      htmlFor="comment"
-                      className="block text-sm font-medium leading-6 text-white/80"
-                    >
-                      system message
-                    </label>
-                    <div className="mt-2">
-                      <textarea
-                        rows={4}
-                        name="comment"
-                        id="comment"
-                        className="block w-full text-white  bg-[#FFFFFF]/[15%] rounded-md border-0 py-1.5  shadow-sm text-sm focus:outline-none px-4"
-                        defaultValue={""}
-                      />
-                    </div>
-                  </div>
                 </div>
               </div>
+
+              <div className="mt-6">
+                <div className="flex items-center justify-between">
+                  <label
+                    htmlFor="comment"
+                    className="block text-sm font-medium leading-6 text-gray-100"
+                  >
+                    Context
+                  </label>
+                  <button
+                    onClick={() => addContextInpu()}
+                    htmlFor="comment"
+                    className="flex items-center text-sm font-medium leading-6 text-gray-100"
+                  >
+                    Add
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                      className="w-5 h-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 6v12m6-6H6"
+                      />
+                    </svg>
+                  </button>
+                </div>
+
+                {context.map((item) => (
+                  <div className="mt-2" key={item}>
+                    <input
+                      type="text"
+                      placeholder="You can import datasets as context"
+                      className="w-full text-white focus:outline-none text-sm px-2 bg-white/[15%] py-3 rounded-md"
+                      name=""
+                      id=""
+                    />
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6">
+                <label
+                  htmlFor="comment"
+                  className="block text-sm font-medium leading-6 text-gray-100"
+                >
+                  Configuration Settings
+                </label>
+
+                <RadioModels />
+              </div>
+
+              <div className="mt-6 mb-2">
+                <h2 className="text-sm font-medium leading-6 text-white/80">
+                  Temprature
+                </h2>
+
+                <SliderSizes />
+              </div>
+
+              <div className="pb-4">
+                <label
+                  htmlFor="comment"
+                  className="block text-sm font-medium leading-6 text-white/80"
+                >
+                  system message
+                </label>
+                <div className="mt-2">
+                  <textarea
+                    rows={4}
+                    name="comment"
+                    id="comment"
+                    className="block w-full text-white  bg-[#FFFFFF]/[15%] rounded-md border-0 py-1.5  shadow-sm text-sm focus:outline-none px-4"
+                    defaultValue={""}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </VarModal>
       </div>
     </>
