@@ -4,8 +4,8 @@ function BasicsIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
+      className="md:h-5 md:w-5 x-3 w-3"
+       
       fill="currentcolor"
       viewBox="0 0 24 24"
     >

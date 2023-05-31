@@ -17,11 +17,11 @@ const GPTForm = () => {
 
 
 
-  
+
   return (
     <div className="z-50  relative h-full flex items-center  gap-8 ">
               <form
-                className="  pr-8 lg:pl-44 pl-20 pt-8 relative rounded-xl w-[100%]  h-full"
+                className="  pr-8 sm:pl-44 pl-4 pt-8 relative rounded-xl w-[100%]  h-full"
                 style={{
                   background: "rgba(26, 27, 30, 0.85)",
                   backdropFilter: "blur(2px)",
@@ -29,7 +29,7 @@ const GPTForm = () => {
               >
                 <img
                   src="/images/cisa.png"
-                  className="absolute lg:left-12 lg:w-auto w-12 left-4"
+                  className="sm:absolute relative lg:left-12 lg:w-auto w-12 left-4"
                   alt=""
                 />
                 <div>

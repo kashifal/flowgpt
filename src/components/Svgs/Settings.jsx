@@ -4,10 +4,10 @@ function SettingsIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="25"
-      height="24"
+     
       fill="currentcolor"
       viewBox="0 0 25 24"
+      className="md:h-5 md:w-5 x-3 w-3"
     >
       <g clipPath="url(#clip0_122_121)">
         <path
