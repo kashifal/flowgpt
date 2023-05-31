@@ -76,9 +76,8 @@ const Layout = (props) => {
       </div>
 
       {/* Main Content Goes here */}
-      <div className="pl-20">
+      <div className="pl-16 xl:pl-0">
       {props.children}
-
       </div>
     </Fragment>
   );
