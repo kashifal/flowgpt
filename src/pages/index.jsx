@@ -230,7 +230,7 @@ export default function Home() {
           </aside>
         </div>
 
-        <div className="xl:ml-[368px] ml-4  pl-4 px-6 pt-6  h-screen relative  screen-height bg-primary">
+        <div className="xl:ml-[368px] ml-4 pl-2 px-6 pt-6  h-screen relative  screen-height bg-primary">
           <div className="h-90 w-full left-0 absolute top-0">
             <img
               src="/images/city.png"
