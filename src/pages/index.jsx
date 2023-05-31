@@ -329,7 +329,7 @@ export default function Home() {
 
         {/*  main body  */}
 
-        <div className="xl:ml-[368px] h-52 xl:hidden ml-4 pl-20 xl:pl-6 px-6 pt-3 bg-primary">
+        <div className="xl:ml-[368px] md:h-52 h-68 xl:hidden ml-4 pl-20 sm:pl-2 px-6 pt-3 bg-primary">
           <aside className=" w-full bg-priamry bottom-0 left-20 top-0    border-gray-700  overflow-y-auto bg-primary  px-2 py-4 sm:px-3 lg:px-4 xl:block">
             <div className="title-div ">
               <div className="flex gap-4">
@@ -396,7 +396,7 @@ export default function Home() {
           </aside>
         </div>
 
-        <div className="xl:ml-[368px] ml-4 pl-20 xl:pl-6 px-6 pt-6  h-screen relative  screen-height bg-primary">
+        <div className="xl:ml-[368px] ml-4 pl-20 sm:pl-2 px-6 pt-6  h-screen relative  screen-height bg-primary">
           <div className="h-90 w-full left-0 absolute top-0">
             <img
               src="/images/city.png"
@@ -408,7 +408,7 @@ export default function Home() {
           {tabIndex === 0 ? (
             <div className="z-50   relative h-full flex items-center  gap-6 ">
               <div
-                className="col-span-1  px-8 pt-14 rounded-xl w-[40%] lg:block hidden  max-h-full overflow-auto"
+                className="col-span-1  px-8 pt-14 rounded-xl 2xl:w-[40%] w-2/4 lg:block hidden  h-full overflow-auto"
                 style={{
                   background: "rgba(26, 27, 30, 0.85)",
                   backdropFilter: "blur(2px)",
@@ -471,39 +471,39 @@ export default function Home() {
                         <div className=" flow-root">
                           <div className=" overflow-x-auto ">
                             <div className="inline-block w-full align-middle ">
-                              <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                              <div className="overflow-auto shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                                 <table className="min-w-full divide-y divide-gray-500">
                                   <thead className="bg-transparent">
                                     <tr>
                                       <th
                                         scope="col"
-                                        className="py-3.5 text-center text-xs font-semibold text-gray-100/80 sm:pl-6"
+                                        className="py-3.5 text-left xl:text-left text-xs font-semibold text-gray-100/80 sm:pl-2"
                                       >
                                         Option
                                       </th>
                                       <th
                                         scope="col"
-                                        className="  py-3.5 text-center text-xs font-semibold text-gray-100/80"
+                                        className="  py-3.5 text-left xl:text-left text-xs font-semibold text-gray-100/80"
                                       >
                                         variable name
                                       </th>
                                       <th
                                         scope="col"
-                                        className="  py-3.5 text-center text-xs font-semibold text-gray-100/80"
+                                        className="  py-3.5 text-left xl:text-left text-xs font-semibold text-gray-100/80"
                                       >
                                         example input
                                       </th>
                                       <th
                                         scope="col"
-                                        className="  py-3.5 text-center text-xs font-semibold text-gray-100"
+                                        className="  py-3.5 text-left xl:text-left text-xs font-semibold text-gray-100"
                                       ></th>
                                     </tr>
                                   </thead>
                                   <tbody className=" bg-transparent">
                                     {fields.map((item, index) => (
                                       <tr key={item.id}>
-                                        <td className="whitespace-nowrap   text-sm font-medium text-gray-100 sm:pl-6">
-                                          <div className={item?.select === false ? "  relative w-32 py-1.5 bg-transparent border border-gray-600 px-2 rounded-xl  justify-end gap-4 flex items-center" : "relative w-32 py-1.5 bg-transparent border border-gray-600 px-2 rounded-xl  justify-start gap-4 flex items-center"}>
+                                        <td className="whitespace-nowrap   text-sm font-medium text-gray-100 sm:pl-2">
+                                          <div className={item?.select === false ? "  relative xl:w-28 w-24   py-1.5 bg-transparent border border-gray-600 px-2 rounded-xl  justify-end  flex items-center" : "relative w-32 py-1.5 bg-transparent border border-gray-600 px-2 rounded-xl  justify-start gap-4 flex items-center"}>
                                              
                                             
                                            
@@ -529,11 +529,11 @@ export default function Home() {
                                             </div>
                                           </div>
                                         </td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-100">
+                                        <td className="whitespace-nowrap  py-4 text-sm text-gray-100">
                                           {item?.select === false ? (
                                             <input
                                               type="text"
-                                              className="py-1.5  border border-gray-600 pl-2 rounded-xl bg-transparent"
+                                              className="py-1.5  border border-gray-600  rounded-xl bg-transparent"
                                               {...register(
                                                 `variables.${index}.name`
                                               )}
@@ -660,7 +660,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="col-span-2 relative rounded-xl w-full lg:w-[60%] overflow-hidden  h-full">
+              <div className="col-span-2 relative rounded-xl w-full lg:w-2/4 xl:w-[60%] overflow-hidden  h-full">
                 <div
                   className="max-h-[100%] text-white overflow-y-scroll h-full pb-24 px-14 lg:px-20 pt-24 w-full z-50 left-0 bg-white -top-16 absolute"
                   style={{
@@ -905,19 +905,19 @@ export default function Home() {
                     <div className=" flow-root">
                       <div className=" overflow-x-auto ">
                         <div className="inline-block w-full align-middle ">
-                          <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                          <div className="overflow-auto shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                             <table className="min-w-full divide-y divide-gray-300">
                               <thead className="bg-transparent">
                                 <tr>
                                   <th
                                     scope="col"
-                                    className="py-3.5 text-center text-xs font-semibold text-gray-100/80 sm:pl-6"
+                                    className="py-3.5 text-center text-xs font-semibold text-gray-100/80 sm:pl-2"
                                   >
                                     Option
                                   </th>
                                   <th
                                     scope="col"
-                                    className="  py-3.5 text-center text-xs font-semibold text-gray-100/80"
+                                    className="  py-3.5 break-all text-center text-xs font-semibold text-gray-100/80"
                                   >
                                     variable name
                                   </th>
@@ -936,8 +936,8 @@ export default function Home() {
                               <tbody className=" bg-transparent">
                                     {fields.map((item, index) => (
                                       <tr key={item.id}>
-                                        <td className="whitespace-nowrap   text-sm font-medium text-gray-100 sm:pl-6">
-                                          <div className={item?.select === false ? "  relative w-32 py-1.5 bg-transparent border border-gray-600 px-2 rounded-xl  justify-end gap-4 flex items-center" : "relative w-32 py-1.5 bg-transparent border border-gray-600 px-2 rounded-xl  justify-start gap-4 flex items-center"}>
+                                        <td className="whitespace-nowrap   text-sm font-medium text-gray-100 sm:pl-2">
+                                          <div className={item?.select === false ? "  relative w-28 xl:w-32 py-1.5 bg-transparent border border-gray-600 px-2 rounded-xl  justify-end gap-4 flex items-center" : "relative w-32 py-1.5 bg-transparent border border-gray-600 px-2 rounded-xl  justify-start gap-4 flex items-center"}>
                                              
                                             
                                            
@@ -963,11 +963,11 @@ export default function Home() {
                                             </div>
                                           </div>
                                         </td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-100">
+                                        <td className="whitespace-nowrap px-0 py-4 text-sm text-gray-100">
                                           {item?.select === false ? (
                                             <input
                                               type="text"
-                                              className="py-1.5  border border-gray-600 pl-2 rounded-xl bg-transparent"
+                                              className="py-1.5  border border-gray-600 pl-2 w-24 rounded-xl bg-transparent"
                                               {...register(
                                                 `variables.${index}.name`
                                               )}
