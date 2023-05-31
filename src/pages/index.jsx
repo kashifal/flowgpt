@@ -148,7 +148,7 @@ export default function Home() {
                       {/* <item.icon className="h-6 w-6 shrink-0" aria-hidden="true" /> */}
                       <div className=" flex items-center py-0.5 gap-4">
                         <item.icon />
-                        <span className="text-sm leading-none inline-block flex-none font-normal">
+                        <span className="text-xs md:text-sm leading-none inline-block flex-none font-normal">
                           {item.name}
                         </span>
                       </div>
@@ -163,14 +163,14 @@ export default function Home() {
 
         {/*  main body  */}
 
-        <div className="xl:ml-[368px] md:h-52 h-68 xl:hidden ml-4 pl-20 sm:pl-2 px-6 pt-3 bg-primary">
+        <div className="xl:ml-[368px] md:h-52 h-68 xl:hidden ml-4 pl-4 sm:pl-2 px-6 pt-3 bg-primary">
           <aside className=" w-full bg-priamry bottom-0 left-20 top-0    border-gray-700  overflow-y-auto bg-primary  px-2 py-4 sm:px-3 lg:px-4 xl:block">
             <div className="title-div ">
               <div className="flex gap-4">
                 <div className="bg-[#9F9F9F] rounded-xl px-3 py-3 inline-flex">
                   <CameraIcon />
                 </div>
-                <h1 className="text-md text-white font-semibold">
+                <h1 className="md:text-md text-sm text-white font-semibold">
                   Language Translation Assistant
                 </h1>
               </div>
@@ -179,7 +179,7 @@ export default function Home() {
                 className=" gap-2 mt-2 ml-16  items-center inline-flex px-8 justify-center rounded-full py-2 bg-white/20"
               >
                 <ChatIcon />
-                <h1 className="text-md  font-semibold text-white/70">
+                <h1 className="md:text-md text-xs  font-semibold text-white/70">
                   Chatbot
                 </h1>
               </a>
@@ -188,7 +188,7 @@ export default function Home() {
                 onClick={() => setOpen(!open)}
                 className=" gap-2 mt-2 ml-16  items-center inline-flex px-8 justify-center rounded-full py-2 bg-white/20"
               > 
-                <h1 className="text-md  font-semibold text-white/70">
+                <h1 className="tmd:text-md text-xs font-semibold text-white/70">
                   Open Prompt
                 </h1>
               </button>
@@ -216,7 +216,7 @@ export default function Home() {
                         {/* <item.icon className="h-6 w-6 shrink-0" aria-hidden="true" /> */}
                         <div className=" flex items-center py-0.5 gap-4">
                           <item.icon />
-                          <span className="text-sm leading-none inline-block flex-none font-normal">
+                          <span className="md:text-sm text-xs leading-none inline-block flex-none font-normal">
                             {item.name}
                           </span>
                         </div>
@@ -529,7 +529,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="absolute bottom-0 py-4 left-0 w-full lg:px-12 px-6 right-0 gap-4 flex items-center">
+                <div className="absolute bottom-0 py-4 left-0 w-full lg:px-12 px-2 right-0 gap-4 flex items-center">
                   <input className="w-full px-3 py-2 rounded-full" onChange={(e) => setGptMessage(e.target.value)} />
                   <button onClick={() => {console.log(gptMessage)}}  className="bg-white py-2 gap-2 rounded-full px-4 flex items-center">
                     Send <MessageIcon />
